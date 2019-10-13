@@ -12,6 +12,7 @@ class process{
 	void display();
 	void Sort(int j);
 	void fcfs();
+	void sjf();
 	void Swap(int* a, int* b);
 };
 process::process()
@@ -49,6 +50,16 @@ void process::display()
 void process::fcfs()
 {
 	Sort(0);
+}
+void process::sjf()
+{
+	Sort(0);
+	//run the first process
+	int time = 0;
+	while( )
+	//once it has ended, check which amongst the remainning in ready queue has least burst time
+	//
+	
 }
 void process::Sort(int a)
 {
