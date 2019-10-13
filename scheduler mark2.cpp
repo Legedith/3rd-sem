@@ -12,6 +12,7 @@ class process{
 	void display();
 	void Sort(int j);
 	void fcfs();
+	void Swap(int* a, int* b);
 };
 process::process()
 {
@@ -45,31 +46,37 @@ void process::display()
 		cout<<endl;
 	}
 }
-void fcfs()
+void process::fcfs()
 {
-	
+	Sort(0);
 }
 void process::Sort(int a)
 {
 	bool flag = false;
 	for(int i=0; i<n; i++,flag = false)
 	{
-		for(int j=0; j<n-i;j++)
+		for(int j=0; j<n-i-1;j++)
 		{
+			
 			if(p[j+1][a]<p[j][a])
 			{
 				flag = true;
-				Swap(p[j],p[j+1]);
+				int* c = p[j];
+				p[j] = p[j+1];
+				p[j+1] = c;
 			}
 		}
+		if(flag == false)
+			break;
 	}
 }
-
 
 int main()
 {
 	process ar;
 	ar.input();
+	ar.display();
+	ar.fcfs();
 	ar.display();
 	getch();
 	return 0;
