@@ -25,7 +25,8 @@ class sll{
 		void delEnd();
 		void reverse();
 		void display();
-		bool search(type n);
+		void displayalt();
+		int search(type n);
 		void rev();
 		sll concat(sll const &list);
 		sll operator + (sll const &list);
@@ -82,8 +83,8 @@ void sll<type>::delIndex(int n)
 		l--;
 		return;
 	}
-	if(n>=l)
-		n = l-1;
+	if(n==l)
+		n--;
 	for(int i = 0; i<n-1; i++)
 		temp = temp->next;
 	node<type>* temp2 = temp->next;
@@ -101,7 +102,7 @@ void sll<type>::insertIndex(type info, int n)
 	node<type>* p = new node<type>;
 	p->info = info;
 	p->next = NULL; 
-	if(n>length())
+	if(n>length()  or n<0)
 		n = length();
 	if(n==0)
 	{
@@ -128,9 +129,24 @@ void sll<type>::display()
 	node<type>* temp =head;
 	while(temp != NULL)
 	{
-		cout<<temp->info;
+		cout<<"["<<temp->info<<"] ";
 		temp = temp->next;
 	}
+	cout<<endl;
+}
+
+template <class type>
+void sll<type>::displayalt()
+{
+	node<type>* temp =head;
+	while(temp != NULL)
+	{
+		cout<<"["<<temp->info<<"] ";
+		if(temp->next=NULL)
+			break;
+		temp = temp->next->next;
+	}
+	cout<<endl;
 }
 
 template <class type>
@@ -164,16 +180,21 @@ void sll<type>::delEnd()
 	delIndex(l);
 }
 template <class type>
-bool sll<type>::search(type n)
+int sll<type>::search(type n)
 {
-	node<type>* temp = head;
-	while(temp != NULL)
+	if(l!=0)
 	{
-		if(temp->info == n)
-			return true;
-		temp= temp->next;
+		int n=0;
+		node<type>* temp = head;
+		while(temp != NULL)
+		{
+			if(temp->info == n)
+				return n;
+			temp= temp->next;
+			n++;
+		}
 	}
-	return false;
+	return -1;
 }
 template <class type>
 void sll<type>::insertStart(type info)
@@ -223,66 +244,3 @@ void sll<type>::rev()
 	}
 	*/
 }
-int main()
-{
-
-	sll<int> b;
-	b.insertIndex(1);
-	getch();b.display();
-	b.insertIndex(2);
-	getch();b.display();
-	b.insertIndex(3,1);
-	getch();b.display();
-	b.insertIndex(7,2);
-getch();b.display();
-	b.insertIndex(8,4);
-	getch();b.display();
-	b.insertStart(9);
-	getch();b.display();
-	b.insertEnd(9);
-	b.display();
-	cout<<endl;
-	getch();
-//	cout<<"Deleting start\n";
-//	b.delStart();
-//	b.delEnd();
-//	b.display();
-//	cout<<"\nlength: ";
-//	cout<<b.l<<endl;
-//	b.insertIndex(4,9);
-//	b.display();
-//	b.delIndex();
-//	cout<<endl;
-//	cout<<"Deleting start\n";
-//	b.display();
-//	cout<<"\nlength: ";
-//	cout<<b.l<<endl;
-//	b.delIndex(3);
-//	cout<<endl;
-//	b.display();
-    sll<int> a = b;
-    cout<<a.length();
-    cout<<"here";
-    getch();
-    b.delStart();
-    cout<<endl;
-    a.display();
-    cout<<endl;
-	b.display();
-getch();
-	sll<int> c = a+b;
-	cout<<endl;
-	sll<int> d = a.concat(b);
-	c.display();
-	cout<<endl;
-	d.display();
-	cout<<endl;
-	cout<<d.search(8)<<" "<<d.search(6)<<" "<<d.search(3)<<" "<<endl;
-	d.rev();
-	cout<<endl;
-	d.display();
-	getch();
-		getch();
-	return 0;
-}
-

@@ -6,17 +6,18 @@ template <class type>
 struct node{
 	type info;
 	node* next;
+	node* prev;
 
 };
 
 template <class type>
-class sll{
+class dll{
 	public:
 		int l;
 		node<type>* head =NULL;
-		sll();
-		~sll();
-		sll(const sll<type> &list);
+		dll();
+		~dll();
+		dll(const dll<type> &list);
 		void insertIndex(type info, int n=0);		
 		void insertStart(type info);
 		void insertEnd(type info);
@@ -25,10 +26,11 @@ class sll{
 		void delEnd();
 		void reverse();
 		void display();
+		void displayalt();
 		bool search(type n);
 		void rev();
-		sll concat(sll const &list);
-		sll operator + (sll const &list);
+		dll concat(dll const &list);
+		dll operator + (dll const &list);
 		int length();
 		//search overload conhcat alternate 
 		
@@ -37,25 +39,25 @@ class sll{
 
 
 template <class type>
-sll<type>::sll()
+dll<type>::dll()
 {
 	head = NULL;
 	l =0 ;
 }
 
 template <class type>
-sll<type>::~sll()
+dll<type>::~dll()
 {
 	cout<<"!!! Destroying the List !!!\n";	
 }
 template <class type>
-sll<type> sll<type>::concat(const sll<type> &list)
+dll<type> dll<type>::concat(const dll<type> &list)
 {
-	sll<type> res = *this;
+	dll<type> res = *this;
 	return res+list;
 }
 template <class type>
-sll<type>::sll(const sll<type> &list)
+dll<type>::dll(const dll<type> &list)
 {
 	l = 0;
 	head = NULL;
@@ -66,12 +68,11 @@ sll<type>::sll(const sll<type> &list)
 	{
 		insertEnd(temp->info);
 		temp = temp->next;
-		
 	}
 }
 
 template <class type>
-void sll<type>::delIndex(int n)
+void dll<type>::delIndex(int n)
 {
 	node<type>* temp =head;
 	if(n==0)
@@ -88,7 +89,10 @@ void sll<type>::delIndex(int n)
 		temp = temp->next;
 	node<type>* temp2 = temp->next;
 	temp->next = temp->next->next;
+	if (n!=l-1)
+		temp2->next->prev = temp;
 	temp2->next = NULL;
+	temp2->prev = NULL;
 	l--;
 	delete temp2;
 	temp = NULL;
@@ -96,16 +100,19 @@ void sll<type>::delIndex(int n)
 }
 
 template <class type>
-void sll<type>::insertIndex(type info, int n)
+void dll<type>::insertIndex(type info, int n)
 {
 	node<type>* p = new node<type>;
 	p->info = info;
-	p->next = NULL; 
+	p->next = NULL;
+	p->prev = NULL; 
 	if(n>length())
 		n = length();
 	if(n==0)
 	{
 		p->next = head;
+		if(l != 0)
+			head->prev = p;
 		head = p;
 		p = NULL;
 		delete p;
@@ -116,39 +123,57 @@ void sll<type>::insertIndex(type info, int n)
 	for(int i = 0; i<n-1; i++)
 		temp = temp->next;	
 	p->next = temp->next;
+	if(n != l)
+		p->next->prev = p;
 	temp->next = p;
+	p->prev = temp;
 	l++;
 	temp = NULL;
 	delete temp;
 }
 
 template <class type>
-void sll<type>::display()
+void dll<type>::display()
 {
 	node<type>* temp =head;
 	while(temp != NULL)
 	{
-		cout<<temp->info;
+		cout<<"["<<temp->info<<"] ";
 		temp = temp->next;
 	}
+	cout<<endl;
 }
 
 template <class type>
-int sll<type>::length()
+void dll<type>::displayalt()
+{
+	node<type>* temp =head;
+	while(temp != NULL)
+	{
+		cout<<"["<<temp->info<<"] ";
+		if(temp->next==NULL)
+			break;
+		temp = temp->next->next;
+	}
+	cout<<endl;
+}
+
+template <class type>
+int dll<type>::length()
 {
 	return l;
 }
 
 template <class type>
-void sll<type>::delStart()
+void dll<type>::delStart()
 {
 	delIndex();
 }
 
 template <class type>
-sll<type> sll<type>::operator + (sll const &list)
+dll<type> dll<type>::operator + (dll const &list)
 {
-	sll<type> res = *this;
+	dll<type> res = *this;
 	node<type>* temp = list.head;
 	while(temp != NULL)
 	{
@@ -159,12 +184,12 @@ sll<type> sll<type>::operator + (sll const &list)
 }
 
 template <class type>
-void sll<type>::delEnd()
+void dll<type>::delEnd()
 {
 	delIndex(l);
 }
 template <class type>
-bool sll<type>::search(type n)
+bool dll<type>::search(type n)
 {
 	node<type>* temp = head;
 	while(temp != NULL)
@@ -176,91 +201,95 @@ bool sll<type>::search(type n)
 	return false;
 }
 template <class type>
-void sll<type>::insertStart(type info)
+void dll<type>::insertStart(type info)
 {
 	insertIndex(info);
 }
 
 template <class type>
-void sll<type>::insertEnd(type info)
+void dll<type>::insertEnd(type info)
 {
 	insertIndex(info , l);
 }
 template <class type>
-void sll<type>::rev()
+void dll<type>::rev()
 {
 	if(l==0)
 		return;
-	node<type>* t1 = NULL;
-	node<type>* t2 = head;
-	node<type>* t3 = head->next;
-	while(t3 != NULL)
+	node<type>* p = head->next;
+	for(int i=0; i<l;i++)
 	{
-		t2->next = t1;
-		t1 = t2;
-		t2 = t3;
-		t3 = t3->next;
-	}
-	t2->next = t1;
-	t1 = t2;
-	t2 = t3;
-	head = t1;
-	/* better one
-	else
-	{
-		node<N>* t;
-		node<N>* p;
-		t=head;
-		p=head->next;
-		while(head->next!=NULL)
+		head->next = head->prev;
+		head->prev = p;
+		if(i!=l-1)
 		{
-			head->next=p->next;
-			p->next=t;
-			t=p;
-			p=head->next;
+			head = head->prev;
+			p = p->next;
 		}
-		head=t;
 	}
-	*/
+	delete p;
 }
 int main()
 {
 
-	sll<int> b;
+	dll<int> b;
 	b.insertIndex(1);
-	getch();b.display();
-	b.insertIndex(2);
-	getch();b.display();
-	b.insertIndex(3,1);
-	getch();b.display();
-	b.insertIndex(7,2);
-getch();b.display();
-	b.insertIndex(8,4);
-	getch();b.display();
-	b.insertStart(9);
-	getch();b.display();
-	b.insertEnd(9);
 	b.display();
 	cout<<endl;
 	getch();
-//	cout<<"Deleting start\n";
-//	b.delStart();
-//	b.delEnd();
-//	b.display();
-//	cout<<"\nlength: ";
-//	cout<<b.l<<endl;
-//	b.insertIndex(4,9);
-//	b.display();
-//	b.delIndex();
-//	cout<<endl;
-//	cout<<"Deleting start\n";
-//	b.display();
-//	cout<<"\nlength: ";
-//	cout<<b.l<<endl;
-//	b.delIndex(3);
-//	cout<<endl;
-//	b.display();
-    sll<int> a = b;
+	b.insertIndex(2);
+	b.display();
+	cout<<endl;
+	getch();
+
+	b.insertIndex(3,1);
+		b.display();
+	cout<<endl;
+	getch();
+
+	b.insertIndex(7,2);
+		b.display();
+	cout<<endl;
+	getch();
+
+	b.insertIndex(8,3);
+		b.display();
+	cout<<endl;
+	getch();
+
+	b.insertStart(9);
+		b.display();
+	cout<<endl;
+	getch();
+
+	b.insertEnd(9);
+		b.display();
+	cout<<endl;
+	getch();
+
+	b.display();
+	cout<<endl;
+	cout<<"Deleting start\n";
+	b.delStart();
+		b.display();
+	cout<<endl;
+	getch();
+	b.delEnd();
+	b.display();
+	cout<<"\nlength: ";
+	cout<<b.l<<endl;
+	b.insertIndex(4,9);
+	b.display();
+	b.delIndex();
+	cout<<endl;
+	cout<<"Deleting start\n";
+	b.display();
+	cout<<"\nlength: ";
+	cout<<b.l<<endl;
+	b.delIndex(3);
+	cout<<endl;
+	b.display();
+    dll<int> a = b;
     cout<<a.length();
     cout<<"here";
     getch();
@@ -270,9 +299,9 @@ getch();b.display();
     cout<<endl;
 	b.display();
 getch();
-	sll<int> c = a+b;
+	dll<int> c = a+b;
 	cout<<endl;
-	sll<int> d = a.concat(b);
+	dll<int> d = a.concat(b);
 	c.display();
 	cout<<endl;
 	d.display();
@@ -282,6 +311,8 @@ getch();
 	cout<<endl;
 	d.display();
 	getch();
+	cout<<endl;
+	d.displayalt();
 		getch();
 	return 0;
 }
