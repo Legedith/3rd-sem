@@ -27,7 +27,8 @@ class dll{
 		void reverse();
 		void display();
 		void displayalt();
-		bool search(type n);
+		int search(type n);
+		type searchInd(int n);
 		void rev();
 		dll concat(dll const &list);
 		dll operator + (dll const &list);
@@ -106,7 +107,7 @@ void dll<type>::insertIndex(type info, int n)
 	p->info = info;
 	p->next = NULL;
 	p->prev = NULL; 
-	if(n>length())
+	if(n>length() or n<0)
 		n = length();
 	if(n==0)
 	{
@@ -189,17 +190,41 @@ void dll<type>::delEnd()
 	delIndex(l);
 }
 template <class type>
-bool dll<type>::search(type n)
+int dll<type>::search(type n)
 {
-	node<type>* temp = head;
-	while(temp != NULL)
+	if(l!=0)
 	{
-		if(temp->info == n)
-			return true;
-		temp= temp->next;
+		int n=0;
+		node<type>* temp = head;
+		while(temp != NULL)
+		{
+			if(temp->info == n)
+				return n;
+			temp= temp->next;
+			n++;
+		}
 	}
-	return false;
+	return -1;
 }
+
+template <class type>
+type dll<type>::searchInd(int n)
+{
+	if(l!=0 and n<l)
+	{
+		int i = 0;
+		node<type>* temp = head;
+		while(temp != NULL)
+		{
+			if(i == n)
+				return temp->info;
+			temp= temp->next;
+			i++;
+		}
+	}
+	return -1;
+}
+
 template <class type>
 void dll<type>::insertStart(type info)
 {

@@ -26,7 +26,7 @@ class sll{
 		void reverse();
 		void display();
 		void displayalt();
-		bool search(type n);
+		int search(type n);
 		void rev();
 		sll concat(sll const &list);
 		sll operator + (sll const &list);
@@ -102,7 +102,7 @@ void sll<type>::insertIndex(type info, int n)
 	node<type>* p = new node<type>;
 	p->info = info;
 	p->next = NULL; 
-	if(n>length())
+	if(n>length()  or n<0)
 		n = length();
 	if(n==0)
 	{
@@ -180,16 +180,21 @@ void sll<type>::delEnd()
 	delIndex(l);
 }
 template <class type>
-bool sll<type>::search(type n)
+int sll<type>::search(type n)
 {
-	node<type>* temp = head;
-	while(temp != NULL)
+	if(l!=0)
 	{
-		if(temp->info == n)
-			return true;
-		temp= temp->next;
+		int n=0;
+		node<type>* temp = head;
+		while(temp != NULL)
+		{
+			if(temp->info == n)
+				return n;
+			temp= temp->next;
+			n++;
+		}
 	}
-	return false;
+	return -1;
 }
 template <class type>
 void sll<type>::insertStart(type info)
