@@ -1,5 +1,5 @@
 #include <iostream>
-#include <cinio.h>
+#include <conio.h>
 using namespace std;
 
 class matrix{
