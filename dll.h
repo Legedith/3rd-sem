@@ -152,7 +152,7 @@ void dll<type>::displayalt()
 	while(temp != NULL)
 	{
 		cout<<"["<<temp->info<<"] ";
-		if(temp->next==NULL)
+		if(temp->next=NULL)
 			break;
 		temp = temp->next->next;
 	}
@@ -194,14 +194,14 @@ int dll<type>::search(type n)
 {
 	if(l!=0)
 	{
-		int n=0;
+		int m=0;
 		node<type>* temp = head;
 		while(temp != NULL)
 		{
 			if(temp->info == n)
-				return n;
+				return m;
 			temp= temp->next;
-			n++;
+			m++;
 		}
 	}
 	return -1;

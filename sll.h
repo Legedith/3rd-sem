@@ -27,6 +27,7 @@ class sll{
 		void display();
 		void displayalt();
 		int search(type n);
+		type searchInd(int n);
 		void rev();
 		sll concat(sll const &list);
 		sll operator + (sll const &list);
@@ -142,7 +143,7 @@ void sll<type>::displayalt()
 	while(temp != NULL)
 	{
 		cout<<"["<<temp->info<<"] ";
-		if(temp->next=NULL)
+		if(temp->next==NULL)
 			break;
 		temp = temp->next->next;
 	}
@@ -184,18 +185,38 @@ int sll<type>::search(type n)
 {
 	if(l!=0)
 	{
-		int n=0;
+		int m=0;
 		node<type>* temp = head;
 		while(temp != NULL)
 		{
 			if(temp->info == n)
-				return n;
+				return m;
 			temp= temp->next;
-			n++;
+			m++;
 		}
 	}
 	return -1;
 }
+
+template <class type>
+type sll<type>::searchInd(int n)
+{
+	if(l!=0 and n<l)
+	{
+		int i = 0;
+		node<type>* temp = head;
+		while(temp != NULL)
+		{
+			if(i == n)
+				return temp->info;
+			temp= temp->next;
+			i++;
+		}
+	}
+	return -1;
+}
+
+
 template <class type>
 void sll<type>::insertStart(type info)
 {

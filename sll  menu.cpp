@@ -1,16 +1,16 @@
 #include<iostream>
 #include<conio.h>
-#include"dll.h"
+#include"sll.h"
 using namespace std;
 template <class N>
-void menu(dll<N> &L)
+void menu(sll<N> &L)
 {
 	int n;
 	char ch;
 	N x;
-	cout<<"Select dll operation"<<endl;
+	cout<<"Select sll operation"<<endl;
 	cout<<"1.Insert"<<endl;
-	cout<<"2.Reverse dll"<<endl;
+	cout<<"2.Reverse sll"<<endl;
 	cout<<"3.Display"<<endl;
 	cout<<"4.Delete"<<endl;
 	cout<<"5.Search by index"<<endl;
@@ -87,9 +87,9 @@ void menu(dll<N> &L)
 			}
 			case 8:
 			{
-				cout<<"Select dll operation"<<endl;
+				cout<<"Select sll operation"<<endl;
 				cout<<"1.Insert"<<endl;
-				cout<<"2.Reverse dll"<<endl;
+				cout<<"2.Reverse sll"<<endl;
 				cout<<"3.Display"<<endl;
 				cout<<"4.Delete"<<endl;
 				cout<<"5.Search by index"<<endl;
@@ -111,7 +111,7 @@ void menu(dll<N> &L)
 }
 int main()
 {
-	dll<int> L[3];
+	sll<int> L[3];
 	do 
 	{
 		cout<<"1. List 1"<<endl;
