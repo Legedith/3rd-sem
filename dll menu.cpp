@@ -23,7 +23,7 @@ void menu(dll<N> &L)
 		{
 			case 1:
 			{
-				cout<<"1=Beginning -1=End Else any position: ";
+				cout<<"0=Beginning -1=End Else any position: ";
 				cin>>n;
 				cout<<"Enter data: ";
 				cin>>x;
@@ -44,7 +44,7 @@ void menu(dll<N> &L)
 			}
 			case 4:
 			{
-				cout<<"1=Beginning -1=End Else any position";
+				cout<<"Enter position: ";
 				cin>>n;
 				L.delIndex(n);
 				L.display();
@@ -52,8 +52,7 @@ void menu(dll<N> &L)
 			}
 			case 5:
 			{
-				cout<<"Enter index"<<endl;
-				cout<<"1=Beginning -1=End Else any position";
+				cout<<"Enter index: "<<endl;
 				cin>>n;
 				if(n>L.length())
 				{
@@ -146,5 +145,5 @@ int main()
 	getch();
 }
 
-search indev value and delete... 
+//search indev value and delete... 
 
