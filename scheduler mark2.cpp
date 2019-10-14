@@ -4,16 +4,17 @@
 using namespace std;
 
 class process{
+	private:
+		int n;
+		int **p;
 	public:
-	int n;
-	int **p;
-	process();
-	void input();
-	void display();
-	void Sort(int j);
-	void fcfs();
-	void sjf();
-	void Swap(int* a, int* b);
+		process();
+		void input();
+		void display();
+		void Sort(int j);
+		void fcfs();
+		void sjf();
+		void Swap(int* a, int* b);
 };
 process::process()
 {
@@ -56,10 +57,21 @@ void process::sjf()
 	Sort(0);
 	//run the first process
 	int time = 0;
-	while( )
-	//once it has ended, check which amongst the remainning in ready queue has least burst time
-	//
-	
+	int total = 0;
+	int qt[n];
+	for(int i=0; i<n; i++)
+	{
+		if(time<p[i][0])
+		{
+			time = p[i][0];
+		}
+		time+=p[i][1];
+		qt[i] = time-p[i][1];
+	}
+	for(int i=0;i<n; i++)
+	{
+		cout<<qt[i]-p[i][0]<<" ";
+	}
 }
 void process::Sort(int a)
 {
@@ -87,7 +99,7 @@ int main()
 	process ar;
 	ar.input();
 	ar.display();
-	ar.fcfs();
+	ar.sjf();
 	ar.display();
 	getch();
 	return 0;
