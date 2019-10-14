@@ -24,6 +24,7 @@ class sll{
 		void delStart();
 		void delEnd();
 		void reverse();
+		bool isEmpty();
 		void display();
 		void displayalt();
 		int search(type n);
@@ -70,6 +71,14 @@ sll<type>::sll(const sll<type> &list)
 		temp = temp->next;
 		
 	}
+}
+
+template <class type>
+bool sll<type>::isEmpty()
+{
+	if(l==0)
+		return true;
+	return false;
 }
 
 template <class type>
@@ -201,6 +210,8 @@ int sll<type>::search(type n)
 template <class type>
 type sll<type>::searchInd(int n)
 {
+	if(n==-1)
+		n = l-1;
 	if(l!=0 and n<l)
 	{
 		int i = 0;

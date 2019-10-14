@@ -24,8 +24,11 @@ class sll{
 		void delStart();
 		void delEnd();
 		void reverse();
+		bool isEmpty();
 		void display();
-		bool search(type n);
+		void displayalt();
+		int search(type n);
+		type searchInd(int n);
 		void rev();
 		sll concat(sll const &list);
 		sll operator + (sll const &list);
@@ -71,6 +74,14 @@ sll<type>::sll(const sll<type> &list)
 }
 
 template <class type>
+bool sll<type>::isEmpty()
+{
+	if(l==0)
+		return true;
+	return false;
+}
+
+template <class type>
 void sll<type>::delIndex(int n)
 {
 	node<type>* temp =head;
@@ -82,8 +93,8 @@ void sll<type>::delIndex(int n)
 		l--;
 		return;
 	}
-	if(n>=l)
-		n = l-1;
+	if(n==l)
+		n--;
 	for(int i = 0; i<n-1; i++)
 		temp = temp->next;
 	node<type>* temp2 = temp->next;
@@ -101,7 +112,7 @@ void sll<type>::insertIndex(type info, int n)
 	node<type>* p = new node<type>;
 	p->info = info;
 	p->next = NULL; 
-	if(n>length())
+	if(n>length()  or n<0)
 		n = length();
 	if(n==0)
 	{
@@ -128,9 +139,24 @@ void sll<type>::display()
 	node<type>* temp =head;
 	while(temp != NULL)
 	{
-		cout<<temp->info;
+		cout<<"["<<temp->info<<"] ";
 		temp = temp->next;
 	}
+	cout<<endl;
+}
+
+template <class type>
+void sll<type>::displayalt()
+{
+	node<type>* temp =head;
+	while(temp != NULL)
+	{
+		cout<<"["<<temp->info<<"] ";
+		if(temp->next==NULL)
+			break;
+		temp = temp->next->next;
+	}
+	cout<<endl;
 }
 
 template <class type>
@@ -164,17 +190,44 @@ void sll<type>::delEnd()
 	delIndex(l);
 }
 template <class type>
-bool sll<type>::search(type n)
+int sll<type>::search(type n)
 {
-	node<type>* temp = head;
-	while(temp != NULL)
+	if(l!=0)
 	{
-		if(temp->info == n)
-			return true;
-		temp= temp->next;
+		int m=0;
+		node<type>* temp = head;
+		while(temp != NULL)
+		{
+			if(temp->info == n)
+				return m;
+			temp= temp->next;
+			m++;
+		}
 	}
-	return false;
+	return -1;
 }
+
+template <class type>
+type sll<type>::searchInd(int n)
+{
+	if(n==-1)
+		n = l-1;
+	if(l!=0 and n<l)
+	{
+		int i = 0;
+		node<type>* temp = head;
+		while(temp != NULL)
+		{
+			if(i == n)
+				return temp->info;
+			temp= temp->next;
+			i++;
+		}
+	}
+	return -1;
+}
+
+
 template <class type>
 void sll<type>::insertStart(type info)
 {

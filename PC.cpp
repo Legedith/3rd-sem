@@ -33,7 +33,7 @@ PC::PC()
 	front=-1;
 	rear=-1;
 	l=1;
-	buffer[1z];
+	buffer[1];
 }
 PC::PC(int length)
 {

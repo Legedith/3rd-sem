@@ -4,8 +4,8 @@ using namespace std;
 //int last=-1;
 int in=0;
 int out=0;
-int size=60;
-int arr[59];
+int size=6;
+int arr[5];
 void producer(int prod);
 int consumer();
 void producer(int prod)
