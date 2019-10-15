@@ -6,21 +6,20 @@ template <class type>
 struct node{
 	type info;
 	node* next;
-
 };
 
 template <class type>
-class sll{
+class csll{
 	public:
 		int l;
-		node<type>* head =NULL;
-		sll();
-		~sll();
-		sll(const sll<type> &list);
-		void insertIndex(type info, int n=0);		
+		node<type>* tail =NULL;
+		csll();
+		~csll();
+		csll(const csll<type> &list);
+		void insertIndex(type info, int n=l);		
 		void insertStart(type info);
 		void insertEnd(type info);
-		void delIndex(int n=0);		
+		void delIndex(int n=l);		
 		void delStart();
 		void delEnd();
 		void reverse();
@@ -30,8 +29,8 @@ class sll{
 		int search(type n);
 		type searchInd(int n);
 		void rev();
-		sll concat(sll const &list);
-		sll operator + (sll const &list);
+		csll concat(csll const &list);
+		csll operator + (csll const &list);
 		int length();
 		//search overload conhcat alternate 
 		
@@ -40,41 +39,41 @@ class sll{
 
 
 template <class type>
-sll<type>::sll()
+csll<type>::csll()
 {
-	head = NULL;
+	tail = NULL;
 	l =0 ;
 }
 
 template <class type>
-sll<type>::~sll()
+csll<type>::~csll()
 {
 	cout<<"!!! Destroying the List !!!\n";	
 }
 template <class type>
-sll<type> sll<type>::concat(const sll<type> &list)
+csll<type> csll<type>::concat(const csll<type> &list)
 {
-	sll<type> res = *this;
+	csll<type> res = *this;
 	return res+list;
 }
 template <class type>
-sll<type>::sll(const sll<type> &list)
+csll<type>::csll(const csll<type> &list)
 {
 	l = 0;
-	head = NULL;
+	tail = NULL;
 	if (list.l == 0)
 		return;
-	node<type>* temp = list.head;
-	while(temp!=NULL)
+	node<type>* temp = list.tail;
+	do
 	{
-		insertEnd(temp->info);
+		insert(temp->info);
 		temp = temp->next;
 		
-	}
+	}while(temp!=list.tail);
 }
 
 template <class type>
-bool sll<type>::isEmpty()
+bool csll<type>::isEmpty()
 {
 	if(l==0)
 		return true;
@@ -82,171 +81,84 @@ bool sll<type>::isEmpty()
 }
 
 template <class type>
-void sll<type>::delIndex(int n)
+void csll<type>::delIndex(int n)
 {
-	node<type>* temp =head;
-	if(n==0)
-	{
-		head = head->next;
-		temp->next = NULL;
-		delete temp;
-		l--;
-		return;
-	}
-	if(n==l)
-		n--;
-	for(int i = 0; i<n-1; i++)
-		temp = temp->next;
-	node<type>* temp2 = temp->next;
-	temp->next = temp->next->next;
-	temp2->next = NULL;
-	l--;
-	delete temp2;
-	temp = NULL;
-	delete temp;
+
 }
 
 template <class type>
-void sll<type>::insertIndex(type info, int n)
+void csll<type>::insertIndex(type info, int n)
 {
-	node<type>* p = new node<type>;
-	p->info = info;
-	p->next = NULL; 
-	if(n>length()  or n<0)
-		n = length();
-	if(n==0)
-	{
-		p->next = head;
-		head = p;
-		p = NULL;
-		delete p;
-		l++;
-		return;	
-	}
-	node<type>* temp = head;
-	for(int i = 0; i<n-1; i++)
-		temp = temp->next;	
-	p->next = temp->next;
-	temp->next = p;
-	l++;
-	temp = NULL;
-	delete temp;
+	
 }
 
 template <class type>
-void sll<type>::display()
+void csll<type>::display()
 {
-	node<type>* temp =head;
-	while(temp != NULL)
-	{
-		cout<<"["<<temp->info<<"] ";
-		temp = temp->next;
-	}
-	cout<<endl;
+
 }
 
 template <class type>
-void sll<type>::displayalt()
+void csll<type>::displayalt()
 {
-	node<type>* temp =head;
-	while(temp != NULL)
-	{
-		cout<<"["<<temp->info<<"] ";
-		if(temp->next==NULL)
-			break;
-		temp = temp->next->next;
-	}
-	cout<<endl;
+
 }
 
 template <class type>
-int sll<type>::length()
+int csll<type>::length()
 {
 	return l;
 }
 
 template <class type>
-void sll<type>::delStart()
+void csll<type>::delStart()
 {
 	delIndex();
 }
 
 template <class type>
-sll<type> sll<type>::operator + (sll const &list)
+csll<type> csll<type>::operator + (csll const &list)
 {
-	sll<type> res = *this;
-	node<type>* temp = list.head;
-	while(temp != NULL)
-	{
-		res.insertEnd(temp->info);
-		temp = temp->next;
-	}
-	return res;
+	
 }
 
 template <class type>
-void sll<type>::delEnd()
+void csll<type>::delEnd()
 {
 	delIndex(l);
 }
 template <class type>
-int sll<type>::search(type n)
+int csll<type>::search(type n)
 {
-	if(l!=0)
-	{
-		int m=0;
-		node<type>* temp = head;
-		while(temp != NULL)
-		{
-			if(temp->info == n)
-				return m;
-			temp= temp->next;
-			m++;
-		}
-	}
-	return -1;
+
 }
 
 template <class type>
-type sll<type>::searchInd(int n)
+type csll<type>::searchInd(int n)
 {
-	if(n==-1)
-		n = l-1;
-	if(l!=0 and n<l)
-	{
-		int i = 0;
-		node<type>* temp = head;
-		while(temp != NULL)
-		{
-			if(i == n)
-				return temp->info;
-			temp= temp->next;
-			i++;
-		}
-	}
-	return -1;
+	
 }
 
 
 template <class type>
-void sll<type>::insertStart(type info)
+void csll<type>::insertStart(type info)
 {
 	insertIndex(info);
 }
 
 template <class type>
-void sll<type>::insertEnd(type info)
+void csll<type>::insertEnd(type info)
 {
 	insertIndex(info , l);
 }
 template <class type>
-void sll<type>::rev()
+void csll<type>::rev()
 {
 	if(l==0)
 		return;
 	node<type>* t1 = NULL;
-	node<type>* t2 = head;
-	node<type>* t3 = head->next;
+	node<type>* t2 = tail;
+	node<type>* t3 = tail->next;
 	while(t3 != NULL)
 	{
 		t2->next = t1;
@@ -257,29 +169,29 @@ void sll<type>::rev()
 	t2->next = t1;
 	t1 = t2;
 	t2 = t3;
-	head = t1;
+	tail = t1;
 	/* better one
 	else
 	{
 		node<N>* t;
 		node<N>* p;
-		t=head;
-		p=head->next;
-		while(head->next!=NULL)
+		t=tail;
+		p=tail->next;
+		while(tail->next!=NULL)
 		{
-			head->next=p->next;
+			tail->next=p->next;
 			p->next=t;
 			t=p;
-			p=head->next;
+			p=tail->next;
 		}
-		head=t;
+		tail=t;
 	}
 	*/
 }
 int main()
 {
 
-	sll<int> b;
+	csll<int> b;
 	b.insertIndex(1);
 	getch();b.display();
 	b.insertIndex(2);
@@ -313,7 +225,7 @@ getch();b.display();
 //	b.delIndex(3);
 //	cout<<endl;
 //	b.display();
-    sll<int> a = b;
+    csll<int> a = b;
     cout<<a.length();
     cout<<"here";
     getch();
@@ -323,9 +235,9 @@ getch();b.display();
     cout<<endl;
 	b.display();
 getch();
-	sll<int> c = a+b;
+	csll<int> c = a+b;
 	cout<<endl;
-	sll<int> d = a.concat(b);
+	csll<int> d = a.concat(b);
 	c.display();
 	cout<<endl;
 	d.display();
