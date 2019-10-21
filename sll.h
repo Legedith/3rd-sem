@@ -6,7 +6,6 @@ template <class type>
 struct node{
 	type info;
 	node* next;
-
 };
 
 template <class type>
@@ -84,6 +83,14 @@ bool sll<type>::isEmpty()
 template <class type>
 void sll<type>::delIndex(int n)
 {
+	if(l==0)
+		return;
+	if(l==1 )
+	{
+		head=NULL;
+		l--;
+		return;
+	}
 	node<type>* temp =head;
 	if(n==0)
 	{
@@ -93,8 +100,8 @@ void sll<type>::delIndex(int n)
 		l--;
 		return;
 	}
-	if(n==l)
-		n--;
+	if(n==l or n<0)
+		n=l-1;
 	for(int i = 0; i<n-1; i++)
 		temp = temp->next;
 	node<type>* temp2 = temp->next;
