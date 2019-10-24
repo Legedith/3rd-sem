@@ -142,7 +142,7 @@ int main()
 		
 			case 4:
 			{
-				exit(3000);
+				return 0;
 			}
 		}
 	}
