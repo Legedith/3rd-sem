@@ -23,7 +23,7 @@ void menu(CDLL<N> &L)
 		{
 			case 1:
 			{
-				cout<<"1=Beginning -1=End Else any position: ";
+				cout<<"0=Beginning -1=End Else any position: ";
 				cin>>n;
 				cout<<"Enter data: ";
 				cin>>x;
@@ -44,7 +44,7 @@ void menu(CDLL<N> &L)
 			}
 			case 4:
 			{
-				cout<<"1=Beginning -1=End Else any position";
+				cout<<"0=Beginning -1=End Else any position";
 				cin>>n;
 				L.del(n);
 				L.display();

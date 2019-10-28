@@ -59,23 +59,30 @@ void CDLL<N>::insert(int pos,N inf)
 	n->info=inf;
 	n->next=NULL;
 	n->prev=NULL;
-	if(pos == 0)
+	if(pos == 0 or l==0)
 	{
 		if(head == NULL)
 		{
-			head = n;	
+			head = n;
+			head->next = head;
+			head->prev = head;
+				
 		}
 		else
 		{
 			n->next = head;
 			n->prev = head->prev;
+			head->prev->next = n;
 			head->prev = n;
+			head = n;
 		}
+		l++;
 		return;
 	}
 	node<N>* p=head;
-	pos = pos%l;
-	for(int i=0; i<pos; i++)
+	if(pos == -1 or pos>l)
+		pos = l;
+	for(int i=1; i<pos; i++)
 	{
 		p = p->next;
 	}
@@ -84,15 +91,17 @@ void CDLL<N>::insert(int pos,N inf)
 	n->next->prev =n;
 	p->next = n; 
 	p = NULL;
+	l++;
 	delete p;
 	
 }
 template <class N>
 void CDLL<N> :: display()
 {
+	if(l == 0)
+		return;
 	node<N>* p=NULL;
 	p=head;
-	int c=1;
 	cout<<"<->";
 	do
 	{
@@ -106,6 +115,8 @@ void CDLL<N> :: display()
 template <class N>
 void CDLL<N> ::displayalt()
 {
+	if(l == 0)
+		return;
 	node<N>* p=new node<N>;
 	p=head;
 	do
@@ -120,62 +131,50 @@ void CDLL<N> ::displayalt()
 template <class N>
 void CDLL<N>::del(int pos)
 {
+	if(pos>=l or pos == -1)
+		pos = l-1;
 	if(isempty())
 		cout<<"List is empty"<<endl;
 	else if(head->next==head)
-		{
-			head->next=NULL;
-			head->prev=NULL;
-			head=NULL;
-			return;
-		}
+	{
+		head->next=NULL;
+		head->prev=NULL;
+		head=NULL;
+		l--;
+		return;
+	}
 	else
 	{
-		if(pos==1 or pos==0)
+		node<N>* p;
+		p=head;
+		if(pos==0)
 		{
-			node<N>* p;
-			p=head;
-			head->next->prev=head->prev;
-			head=head->next;
-			p->prev->next=head->next;
-			head->prev=NULL;
-			p->next=NULL;
-			p->prev=NULL;
-			p=NULL;
+			head= head->next;
+			head ->prev = p->prev;
+			p->prev->next = head;
+			p->prev = NULL;
+			p->next = NULL;
 			delete p;
+			l--;
 		}
-		else if(pos==-1)
+		else 
 		{
-			node<N>* p=new node<int>;
-			node<N>* t=new node<int>;
-			p=head->prev;
-			p->next=NULL;
-			p->prev->next=head;
-			head->prev=p->prev;
-			p->prev=NULL;
-			p=NULL;
-			delete p;
-		}
-		else
-		{
-			node<N>* p=new node<N>;
-			node<N>* t=new node<N>;
-			p=head;
-			for(int i=1;i<pos and p->next!=NULL;i++)
+			for(int i=1; i<pos; i++)
 			{
-				t=p;
-				p=p->next;
+				p = p->next;
 			}
-			p->next->prev=t;
-			t->next=p->next;
-			p->next=NULL;
-			p->prev=NULL;
-			p=t=NULL;
-			delete p;
+			node<N>* t = p->next;
+			p->next = t->next;
+			t->next->prev = p;
+			t->next = NULL;
+			t->prev = NULL;
 			delete t;
+			l--;
 		}
+	
 	}
 }
+
 template <class N>
 void CDLL<N>::reverse()
 {
@@ -184,24 +183,20 @@ void CDLL<N>::reverse()
 		cout<<"List is empty"<<endl;
 	}
 	else
-	{
-		node<N>* p=NULL;
-		node<N>* t=NULL;
-		p=head;
-		while(true)
-		{
-			t=p->next;
-			p->next=p->prev;
-			p->prev=t;
-			p=p->prev;
-			if(p==head)
-			{
-				break;
-			}
-		}
-		head=head->prev;
-	p=NULL;
-	delete p;
+	{	
+		node<N>* n=head;
+		node<N>* p=head->next;
+		do{
+			n->next = n->prev;
+			n->prev=p;
+			n = n->prev;
+			p = p->next;
+		}while(n!=head);
+		p = NULL;
+		n = NULL;
+		delete p;
+		delete n;
+		head=head->next;
 	}
 }
 template <class N>
