@@ -59,65 +59,33 @@ void CDLL<N>::insert(int pos,N inf)
 	n->info=inf;
 	n->next=NULL;
 	n->prev=NULL;
-	if(pos==1 or pos==0)
+	if(pos == 0)
 	{
-		if(head==NULL)
+		if(head == NULL)
 		{
-			head=n;
-			head->next=head;
-			head->prev=head;
-			l++;
-		//	n=NULL;
-		//	delete n;
+			head = n;	
 		}
 		else
 		{
-			n->prev=head->prev;
-			n->next=head;
-			head->prev=n;
-			n->prev->next = n;
-			head=head->prev;
-		//	n=NULL;
-		//	delete n;
-			l++;
+			n->next = head;
+			n->prev = head->prev;
+			head->prev = n;
 		}
+		return;
 	}
-	else if(pos==-1 or pos>l)
+	node<N>* p=head;
+	pos = pos%l;
+	for(int i=0; i<pos; i++)
 	{
-		if(head==NULL)
-		{
-			head=n;
-			head->next=head;
-			head->prev=head;
-			l++;
-			n=NULL;
-			delete n;
-		}
-		else
-		{
-			n->next=head;
-			n->prev=head->prev;
-			head->prev=n;
-			l++;
-			n=NULL;
-			delete n;
-		}
+		p = p->next;
 	}
-	else if(pos<=l)
-	{
-		node<N>* p;
-		p=head;
-		for(int i=1;i<pos and p->next!=head;i++)
-		{
-			p=p->next;
-		}
-		n->next=p->next;
-		n->prev=p;
-		p->next=n;
-		p=NULL;
-		delete p;
-		l++;
-	}
+	n->next = p->next;
+	n->prev = p;
+	n->next->prev =n;
+	p->next = n; 
+	p = NULL;
+	delete p;
+	
 }
 template <class N>
 void CDLL<N> :: display()
