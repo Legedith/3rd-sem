@@ -117,14 +117,20 @@ void CDLL<N> ::displayalt()
 {
 	if(l == 0)
 		return;
-	node<N>* p=new node<N>;
-	p=head;
+	node<N>* p=head;
+	
 	do
 	{
 		cout<<"["<<p->info<<"] ";
-		if(p==head or p->next==head)
-			break;
 		p=p->next->next;
+		if(p==head )
+			break;
+		if(p->next==head)
+		{
+			cout<<"["<<p->info<<"] ";
+			break;
+		}
+		
 	}while(true);
 	cout<<endl;
 }
@@ -208,7 +214,7 @@ int CDLL<N>::sibv(N val)
 	}
 	else
 	{
-		int ind=1;
+		int ind=0;
 		node<N>* p;
 		p=head;
 		do
@@ -237,12 +243,12 @@ N CDLL<N>::svbi(int pos)
 	else
 	{
 		N val;
-		if(pos==1 or pos==0)
+		if(pos==0)
 		{
 			val=head->info;
 			return val;
 		}
-		else if(pos==-1 or pos>l)
+		else if(pos==-1 or pos>=l)
 		{
 			val=head->prev->info;
 			return val;
@@ -252,11 +258,12 @@ N CDLL<N>::svbi(int pos)
 			N val;
 			node<N>* p;
 			p=head;
-			for(int i=1;i<pos;i++)
+			for(int i=0;i<pos;i++)
 			{
 				p=p->next;
 			}
 			val=p->info;
+			p =NULL;
 			delete p;
 			return val;
 		}

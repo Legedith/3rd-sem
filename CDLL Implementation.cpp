@@ -69,18 +69,14 @@ void menu(CDLL<N> &L)
 				cout<<"Enter value:";
 				cin>>n;
 				n=L.sibv(n);
-				if(n>=1)
-				{
-					cout<<"Value found at node: "<<n<<endl;
-				}
-				else if(n==0)
-				{
-					cout<<"List is empty"<<endl;
-				}
-				else if(n==-1)
+				if(n==-1)
 				{
 					cout<<"Value not found"<<endl;
 				}
+				else{
+					cout<<"Value found at node: "<<n<<endl;
+				}
+				
 				break;
 			}
 			case 7:
