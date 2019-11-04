@@ -8,7 +8,7 @@ int main()
 	int n;
 	int d;
 	while(true)
-	{	cout<<"Enter degree: ";
+	{	cout<<"Enter max degree: ";
 		cin>>d;
 		cout<<"\n\nPoly 1:\n";
 		for(int i=0;i<d;i++)

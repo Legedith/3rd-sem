@@ -2,95 +2,92 @@
 #include <conio.h>
 #include<stdio.h>
 using namespace std;
-
-class process{
-	public:
-	string name;
+struct process
+{
 	int arrival;
 	int burst;
 	int priority;
-//	process(string name,int burst);
-//	process(string name,int burst, int arrival);
-//	process(string name,int burst, int priority);
-	process();
-	process(string name,int burst, int arrival, int priority);
-	void setName(string name);
-	void setArrival(int a);
-	void setBurst(int a);
-	void setPriority(int a);
+	int wait;
+	int complete;
+	int turn_around;
+}
+class schedule{
+	private:
+		int n;
+		process* p;
+	public:
+		schedule();
+		void input();
+		void fcfs();
+		void sjf();
+		void srjf();
+		void rr();
+		void display();
+		void sort_by_arr();
+		void sort_by_brst();
+		void sort_by_pri();
+	
+	
 };
-process::process()
+schedule::schedule()
 {
-	name = "";
-	burst = 0;
-	arrival = 0;
-	priority = 0;
+	n=0;
+	p = new process[0];
 }
-process::process(string n,int b, int a, int p)
+void schedule::input()
 {
-	name = n;
-	burst = b;
-	arrival = a;
-	priority = p;
-}
-void process::setName(string n)
-{
-	name = n;
-}
-void process::setArrival(int a)
-{
-	arrival = a;
-}
-void process::setBurst(int a)
-{
-	burst = a;
-}
-void process::setPriority(int a)
-{
-	priority = a;
-}
-void Swap(process a, process b)
-{
-	process temp = process();
-	temp = b;
-	b = a;
-	a = temp;
-}
-
-void Sort(process* a,int n)
-{
-	bool flag = false;
-	for(int i=0; i<n; i++,flag = false)
+	cout<<"Enter no. of processes: ";
+	cin>>n;
+	p = new process[n];
+	cout<<"Enter 1 if you wanna enter priority: ";
+	int a; 
+	cin>>a;
+	cout<<"Enter arrival of all processes: ";
+	for(int i=0; i<n; i++)
 	{
-		for(int j=0; j<n-i;j++)
-		{
-			if(a[j+i].burst<a[j].burst)
-			{
-				flag = true;
-				Swap(a[j],a[j+1]);
-			}
-		}
+		cin>>p[i].arrival;
 	}
+	cout<<"Enter burst of all processes: ";
+	for(int i=0; i<n; i++)
+	{
+		cin>>p[i].burst;
+	}	
+	for(int i=0; i<n; i++)
+	{
+		p[i].wait = 0;
+		p[i].complete = 0;
+		p[i].priority = 0;
+		p[i].turn_around = 0;
+	}
+	if(a == 1)
+	{
+		cout<<"Enter burst of all processes: ";
+		for(int i=0; i<n; i++)
+		{
+			cin>>p[i].priority;
+		}	
+	}
+	
 }
-
-
+void fcfs()
+{
+	sort_by_arr();
+	display();	
+}
+void sjf()
+{
+	sort_by_brst();
+	sort_by_arr();
+	display();
+}
+void srjf();
+void rr();
+void display();
+void sort_by_arr();
+void sort_by_brst();
+void sort_by_pri();
 int main()
 {
-	string s; int a,b,c;
-	process* ar =new process[5];
-	for(int i=0; i<5; i++)
-	{
-		getline(cin,s);
-		cin>>a;//cin>>b;cin>>c;
-		ar[i].setName(s);
-		ar[i].setBurst(a);
-		cout<<"process "<<s<<" created!\n";
-		fflush(stdin);
-	} 
-	for(int i=0; i<5; i++)
-	{
-		cout<<"process "<<ar[i].name<<" "<<ar[i].burst<<" "<<ar[i].arrival<<" "<<ar[i].priority<<" "<<" created!\n";
-	}
 	
 	getch();
 	return 0;
