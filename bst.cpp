@@ -12,13 +12,13 @@ template <class N>
 class bst
 {
 	private:
-		void inI(node<N>* r);
-		void postI(node<N>* r);
-	public:
 		node<N>* root;
 		int l;
-		void insertInternal(node<N>* ,N data);
+		void inI(node<N>* r);
+		void postI(node<N>* r);
 		void preI(node<N>* r);
+	public:
+		void insertInternal(node<N>* ,N data);
 		bst();
 		~bst();
 		void insert(N data);
