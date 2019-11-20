@@ -56,10 +56,33 @@ void sort::insert()
 		{
 			p[j+1] = p[j];
 			j--;
+			display();
 		}
 		p[j+1] = temp;
-		display();
 	}
+}
+void sort::selection()
+{
+	int min,t;
+	for(int i=0; i<n-1; i++)
+	{
+		min = i;
+		for(int j=i; j<n; j++)
+		{
+			if(p[min]>p[j])
+			{
+				min = j;
+			}
+		}
+		t = p[i];
+		p[i] = p[min];
+		p[min] = t;
+	}
+	display();
+}
+void sort::quick()
+{
+	
 }
 void sort::display()
 {
