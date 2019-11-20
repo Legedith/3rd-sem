@@ -47,7 +47,19 @@ void sort::bubble()
 }
 void sort::insert()
 {
-	
+	int j,temp;
+	for(int i=1; i<n; i++)
+	{
+		j = i-1;
+		temp = p[i];
+		while(p[j]>temp and j>=0)
+		{
+			p[j+1] = p[j];
+			j--;
+		}
+		p[j+1] = temp;
+		display();
+	}
 }
 void sort::display()
 {
@@ -60,7 +72,7 @@ void sort::display()
 int main()
 {
 	sort a;
-	a.bubble();
+	a.insert();
 	getch();
 	return 0;
 }
