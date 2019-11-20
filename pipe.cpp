@@ -3,19 +3,19 @@
 #include<sys/types.h>
 #include <unistd.h>
 #include<stdlib.h>
-//#include<sys/wait.h>
+#include<sys/wait.h>
 int p[2];
 using namespace std;
 int main()
 {
 	pid_t pid;
 	int msize;
-	char* msg=new char[msize];
 	cout<<"Enter the size of your message "<<endl;
 	cin>>msize;
+	char* msg=new char[msize];
 	cout<<"Enter your message string "<<endl;
 	for(int i=0;i<msize;i++)
-	cin>>msg[i];
+		cin>>msg[i];
 	if(pipe(p) < 0) 
         exit(1);
 	pid=fork();
@@ -37,3 +37,4 @@ int main()
 	}
 	return 0;
 }
+

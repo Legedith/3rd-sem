@@ -154,7 +154,7 @@ void matrix::symmetric()
 int main()
 {
 	matrix m;
-	cout<<"Menu: \n1. diagonal\n2."
+	cout<<"Menu: \n1. Diagonal\n2. Lower\n3. Upper\n4. Symmetric\n"
 	m.symmetric();
 	getch();
 	return 0;

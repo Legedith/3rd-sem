@@ -21,11 +21,11 @@ int main(int argc,char *argv[])
 	{
 		cout <<" error in creating a file"<<argv[2]<<endl;
 	}
-	 char buff[500];
+	char buff[500];
 	int count ;
-	while (count =read (fd1,buff,sizeof(buf)))
+	while (count = read (fd1,buff,sizeof(buf)))
 	{
-		write (fd2,buf,count );
+		write (fd2,buff,count );
 	}
 	close (fd1);
 	close(fd2);

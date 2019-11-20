@@ -1,4 +1,5 @@
 #include<iostream>
+#include <conio.h>
 #include<pthread.h>
 #include<unistd.h>
 #include<sys/types.h>
@@ -20,6 +21,7 @@ int main()
 		cout<<"Thread is created"<<endl;
 		cout<<"Sum is "<<sum<<endl;
 	}
+	getch();
 	return 0;
 }
 void* runner(void* b)

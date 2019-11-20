@@ -19,9 +19,11 @@ void init()
 	no_of_frames=phy_mem/page_size;
 	if(phy_mem%page_size!=0)
 	no_of_frames++;	
+//	cout<<no_of_frames;
+//	getch();
 	Fr=new struct Frame[no_of_frames];
 	for(int i=0;i<no_of_frames;i++)
-	Fr[i].fill=0;
+		Fr[i].fill=0;
 }
 class Paging
 {

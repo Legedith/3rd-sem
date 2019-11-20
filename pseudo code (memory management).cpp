@@ -1,5 +1,4 @@
 #include <iostream>
-#include <conio.h>
 using namespace std;
 class meh{
 //make an array of memory chunks
@@ -182,11 +181,10 @@ int main()
 				cout<<"Choose correct option\n";
 		}
 	}
-	getch();
+	
 	return 0;
 }
 	
-//
 //best fit():
 //	loop over processes:
 //		min=-1

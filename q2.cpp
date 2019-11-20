@@ -11,7 +11,7 @@ int main(int argc,char *argv[])
 	{
 		cout<<"Wrong no. of arguments";
 	}
-	fd=open(argv[1],O_RDONLY);
+	fd=open("q1.cpp",O_RDONLY);
 	fstat(fd,&s1);
 	cout<<"Owner uid="<<s1.st_uid<<endl;
 	cout<<"Group id="<<s1.st_gid<<endl;
