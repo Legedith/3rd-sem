@@ -9,8 +9,9 @@ class sort{
 		void bubble();
 		void insert();
 		void selection();
-		void merge();
+		void mgsort(int l, int h);
 		void quick();
+		void merge(int l, int m, int r);
 		void display();
 };
 sort::sort()
@@ -84,6 +85,60 @@ void sort::quick()
 {
 	
 }
+void sort::mgsort(int l, int h)
+{
+	if(l<h)
+	{
+		int mid = (l+h)/2;
+		mgsort(l,mid);
+		mgsort(mid+1,h);
+		merge(l,mid,h);
+	}
+}
+void sort::merge(int l, int m, int r)
+{
+	int n1 = m-l+1;
+	int n2 = r-m;
+	int* a = new int[m-l+1];
+	int* b = new int[r-m];
+	for(int i=0; i<n1; i++ )
+	{
+		a[i] = p[l+i];
+	}
+	for(int i=0; i<n2; i++ )
+	{
+		b[i] = p[m+1+i];
+	}	
+	int i,j,k;
+	i = j = k = 0;
+	while(i<n1 and j<n2)
+	{
+		if(a[i]<b[j])
+		{
+				p[l+k] = a[i];
+				i++;
+		}
+		else
+		{
+			p[l+k] = b[j];
+			j++;
+		}
+		k++;
+	}
+	while(i<n1)
+	{
+		p[l+k] = a[i];
+		k++;
+		i++;
+	}
+	while(j<n2)
+	{
+		p[l+k] = b[j];
+		j++;
+		k++;
+	}
+	display();
+}
 void sort::display()
 {
 	for(int i=0; i<n; i++)
@@ -95,7 +150,7 @@ void sort::display()
 int main()
 {
 	sort a;
-	a.insert();
+	a.mgsort(0,7);
 	getch();
 	return 0;
 }
