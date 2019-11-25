@@ -10,7 +10,8 @@ class sort{
 		void insert();
 		void selection();
 		void mgsort(int l, int h);
-		void quick();
+		int partition(int a, int l, int h);
+		void quick(int low, int high);
 		void merge(int l, int m, int r);
 		void display();
 };
@@ -22,6 +23,42 @@ sort::sort()
 	cout<<"Enter elements: ";
 	for(int i=0; i<n; i++)
 		cin>>p[i];
+}
+int sort::partition(int a, int l, int h)
+{
+	int t;
+	int temp = p[a];
+	int start = l;
+	int end = h;
+	while(end>start)
+	{
+		while(p[start]<temp)
+		{
+			start++;
+		}
+		while(p[end]>temp)
+		{
+			end--;
+		}
+		if(start<end)
+		{
+			t = p[start];
+			p[start] = p[end];
+			p[end] = t;
+		}
+	}
+	cout<<start<<" - "<<end<<endl;
+	display();
+	return start;
+}
+void sort::quick(int low,int high)
+{
+	if(low<high)
+	{
+		int m = partition(low, low, high);
+		quick(low, m-1);
+		quick(m+1,high);	
+	}
 }
 void sort::bubble()
 {
@@ -81,10 +118,7 @@ void sort::selection()
 	}
 	display();
 }
-void sort::quick()
-{
-	
-}
+
 void sort::mgsort(int l, int h)
 {
 	if(l<h)
@@ -150,7 +184,8 @@ void sort::display()
 int main()
 {
 	sort a;
-	a.mgsort(0,7);
+	a.quick(0,7);
+	a.display();
 	getch();
 	return 0;
 }
